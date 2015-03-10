@@ -17,6 +17,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D6876F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stream.Importer.Csv", "Stream.Importer.Csv\Stream.Importer.Csv.csproj", "{31D95735-A2AD-4E7E-B00F-FDB424AA8701}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supporting Files", "Supporting Files", "{C8CAFBCA-3465-4533-AFD9-37F35F952315}"
+	ProjectSection(SolutionItems) = preProject
+		Stream.Importer.Base\sn-stream.snk = Stream.Importer.Base\sn-stream.snk
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
