@@ -19,6 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stream.Importer.Csv", "Stre
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supporting Files", "Supporting Files", "{C8CAFBCA-3465-4533-AFD9-37F35F952315}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
 		Stream.Importer.Base\sn-stream.snk = Stream.Importer.Base\sn-stream.snk
 	EndProjectSection
 EndProject
