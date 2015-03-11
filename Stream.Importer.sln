@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stream.Importer.Base", "Stream.Importer.Base\Stream.Importer.Base.csproj", "{197EDD96-EDBA-4620-B747-2269489A3814}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvImporterTests", "CsvImporterTests\CsvImporterTests.csproj", "{BA7E8EE9-9D35-48A9-9FF3-9063FE6A93F7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stream.Importer.Tests", "CsvImporterTests\Stream.Importer.Tests.csproj", "{BA7E8EE9-9D35-48A9-9FF3-9063FE6A93F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D6876FFC-E1D9-40D7-A1C9-17A38C9899C5}"
 	ProjectSection(SolutionItems) = preProject

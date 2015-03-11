@@ -10,8 +10,8 @@
     <ProjectGuid>{BA7E8EE9-9D35-48A9-9FF3-9063FE6A93F7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CsvImporterTests</RootNamespace>
-    <AssemblyName>CsvImporter.Tests</AssemblyName>
+    <RootNamespace>ImporterTests</RootNamespace>
+    <AssemblyName>Stream.Importer.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>1709f947</NuGetPackageImportStamp>
@@ -59,7 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CsvImporterTests1.cs" />
+    <Compile Include="BaseTests.cs" />
+    <Compile Include="CsvGenericTests.cs" />
+    <Compile Include="CsvTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

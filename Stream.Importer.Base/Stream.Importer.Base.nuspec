@@ -14,8 +14,8 @@
     <releaseNotes></releaseNotes>
     <copyright>Copyright 2015 Stephen Reindl</copyright>
     <tags>Import Stream</tags>
-    <frameworkAssemblies>
+    <!--<frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Data" />
-    </frameworkAssemblies>
+    </frameworkAssemblies>-->
   </metadata>
 </package>

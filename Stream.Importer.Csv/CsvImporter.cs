@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
 using StreamImporter.Base;
+using StreamImporter.Base.ColumnDefinitions;
 
 namespace StreamImporter.Csv
 {
@@ -13,9 +13,9 @@ namespace StreamImporter.Csv
 
         #region Fields
 
-        private char _delimiter = ',';
+        protected char Delimiter = ',';
 
-        private bool _hasHeader;
+        protected bool HasHeader;
 
         private readonly Stream _stream;
 
@@ -37,13 +37,13 @@ namespace StreamImporter.Csv
         public CsvImporter(Stream stream, bool hasHeader)
         : this(stream)
         {
-            _hasHeader = hasHeader;
+            HasHeader = hasHeader;
         }
 
         public CsvImporter(Stream stream, bool hasHeader, char delimiter)
             : this(stream, hasHeader)
         {
-            _delimiter = delimiter;
+            Delimiter = delimiter;
         }
 
         #endregion
@@ -67,21 +67,17 @@ namespace StreamImporter.Csv
             get { return !_stream.CanRead; }
         }
 
+        /// <exception cref="InvalidOperationException">Cannot read from closed stream</exception>
         /// <exception cref="InvalidOperationException">Cannot start reading if columns are not defined until now.</exception>
         public override bool Read()
         {
-            _data = null;
             if (_stream == null || _stream.CanRead == false)
             {
                 throw new InvalidOperationException("Cannot read from closed stream");
             }
-            if ((ColumnDefinitions == null || !ColumnDefinitions.Any()) && !_hasHeader)
+            if ((ColumnDefinitions == null || !ColumnDefinitions.Any()))
             {
                 throw new InvalidOperationException("Cannot start reading if columns are not defined until now.");
-            }
-            if ((ColumnDefinitions == null || !ColumnDefinitions.Any()) && _hasHeader)
-            {
-                ReadHeaderLine();
             }
             string line = _streamReader.ReadLine();
             if (string.IsNullOrWhiteSpace(line))
@@ -94,11 +90,41 @@ namespace StreamImporter.Csv
             {
                 lineData.Add(string.Empty);
             }
-            _data = lineData.Take(FieldCount).ToArray();
+
+            SetData(lineData.Take(FieldCount).ToArray());
             return true;
         }
 
-        private void ReadHeaderLine()
+        public virtual void SetData(string[] data)
+        {
+            _data = data;
+        }
+
+        /// <exception cref="InvalidOperationException">Could not determine headers</exception>
+        public override void SetupColumns()
+        {
+            if (!HasHeader)
+            {
+                return;
+            }
+            List<string> headerFields = ReadHeaderLine();
+            if (headerFields == null)
+            {
+                throw new InvalidOperationException("Could not determine headers");
+            }
+
+            foreach (string field in headerFields)
+            {
+                AddColumnDefinition<string>(field);
+            }
+        }
+
+        public override int FieldCount
+        {
+            get { return ColumnDefinitions != null ? ColumnDefinitions.Count() : 0; }
+        }
+
+        protected List<string> ReadHeaderLine()
         {
             string line = _streamReader.ReadLine();
 
@@ -107,11 +133,7 @@ namespace StreamImporter.Csv
                 throw new InvalidOperationException("Cannot read header line");
             }
 
-            IEnumerable<string> fields = ParseLine(line);
-            foreach (string field in fields)
-            {
-                AddColumnDefinition(field, DbType.String);
-            }
+            return ParseLine(line);
         }
 
         #region Line parser
@@ -140,7 +162,7 @@ namespace StreamImporter.Csv
                         {
                             state = ParseState.InString; // start of string
                         }
-                        else if (data[i] == _delimiter)
+                        else if (data[i] == Delimiter)
                         {
                             output.Add(currentField.ToString());
                             currentField.Clear();
@@ -154,7 +176,7 @@ namespace StreamImporter.Csv
                         }
                         break;
                     case ParseState.InElement:
-                        if (data[i] == _delimiter)
+                        if (data[i] == Delimiter)
                         {
                             output.Add(currentField.ToString());
                             currentField.Clear();
@@ -187,10 +209,10 @@ namespace StreamImporter.Csv
                         currentField.Append(data[i]);
                         break;
                     case ParseState.Delimiter:
-                        if (data[i] != _delimiter)
+                        if (data[i] != Delimiter)
                         {
                             throw new InvalidDataException(string.Format(
-                                "Wrong character at column {0}, expected '{1}'", i + 1, _delimiter));
+                                "Wrong character at column {0}, expected '{1}'", i + 1, Delimiter));
                         }
                         output.Add(currentField.ToString());
                         currentField.Clear();
@@ -212,34 +234,15 @@ namespace StreamImporter.Csv
 
         #endregion
 
-        protected override void AddSchemaTableRows()
-        {
-            foreach (ColumnDefinition column in ColumnDefinitions)
-            {
-                AddColumnMapping(column.Name, column.Name);
-            }
-        }
-
-        public override int FieldCount
-        {
-            get { return ColumnDefinitions != null ? ColumnDefinitions.Count() : 0; }
-        }
-
-        public override Type GetFieldType(int i)
-        {
-            return typeof(string);
-        }
-
-
         #region Utility functions
         public void SetHeader(bool hasHeader)
         {
-            _hasHeader = true;
+            HasHeader = true;
         }
 
         public void SetDelimiter(char delimiter)
         {
-            _delimiter = delimiter;
+            Delimiter = delimiter;
         }
         #endregion
 
