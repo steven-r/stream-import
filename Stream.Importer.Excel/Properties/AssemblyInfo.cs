@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Stream.Importer.Excel")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Excel importer for the generic StreamImporter")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Stream.Importer.Excel")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("Stephen Reindl")]
+[assembly: AssemblyProduct("Stream.Importer")]
+[assembly: AssemblyCopyright("Copyright © 2015 Stephen Reindl")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

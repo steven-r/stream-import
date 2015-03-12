@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stephen Reindl")]
 [assembly: AssemblyProduct("StreamImporter.Csv")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright ©  2015 Stephen Reindl")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
