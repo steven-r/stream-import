@@ -3,14 +3,14 @@ using System.Globalization;
 
 namespace StreamImporter.Base.ColumnDefinitions
 {
-    public class StringColumnDefinition: ColumnDefinitionBase<string>
+    public class StringColumnDefinition: ColumnDefinitionBase<String>
     {
         public StringColumnDefinition()
         {
-            Type = typeof (string);
+            Type = typeof (String);
         }
 
-        public override string Convert(string value)
+        public override string Convert(String value)
         {
             return value;
         }
@@ -53,6 +53,46 @@ namespace StreamImporter.Base.ColumnDefinitions
         public override Decimal Convert(string value)
         {
             return System.Convert.ToDecimal(value, CultureInfo.CurrentCulture);
+        }
+    }
+
+
+    public class SingleColumnDefinition : ColumnDefinitionBase<Single>
+    {
+        public SingleColumnDefinition()
+        {
+            Type = typeof(string);
+        }
+
+        public override Single Convert(string value)
+        {
+            return System.Convert.ToSingle(value, CultureInfo.CurrentCulture);
+        }
+    }
+
+    public class DoubleColumnDefinition : ColumnDefinitionBase<Double>
+    {
+        public DoubleColumnDefinition()
+        {
+            Type = typeof(string);
+        }
+
+        public override Double Convert(string value)
+        {
+            return System.Convert.ToDouble(value, CultureInfo.CurrentCulture);
+        }
+    }
+
+    public class BooleanColumnDefinition : ColumnDefinitionBase<Boolean>
+    {
+        public BooleanColumnDefinition()
+        {
+            Type = typeof(string);
+        }
+
+        public override Boolean Convert(string value)
+        {
+            return System.Convert.ToBoolean(value, CultureInfo.CurrentCulture);
         }
     }
 

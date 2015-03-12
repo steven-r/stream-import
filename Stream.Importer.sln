@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Supporting Files", "Support
 		Stream.Importer.Base\sn-stream.snk = Stream.Importer.Base\sn-stream.snk
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stream.Importer.Excel", "Stream.Importer.Excel\Stream.Importer.Excel.csproj", "{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,16 @@ Global
 		{31D95735-A2AD-4E7E-B00F-FDB424AA8701}.Release|ARM.ActiveCfg = Release|Any CPU
 		{31D95735-A2AD-4E7E-B00F-FDB424AA8701}.Release|x64.ActiveCfg = Release|Any CPU
 		{31D95735-A2AD-4E7E-B00F-FDB424AA8701}.Release|x86.ActiveCfg = Release|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Release|x64.ActiveCfg = Release|Any CPU
+		{E2FCC638-C0FD-44BD-AA55-EBBC293CBD9A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

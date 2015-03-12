@@ -85,7 +85,7 @@ namespace StreamImporter.Base
             }
             if (columnType == null)
             {
-                throw new ArgumentNullException("type");
+                throw new ArgumentNullException("columnType");
             }
             if (columnName == null)
             {
@@ -114,6 +114,25 @@ namespace StreamImporter.Base
         public void SetColumnTypeDefinition<T1>(Type type)
         {
             _standardTypeColumnDefinitionMapping[typeof (T1)] = type;
+        }
+
+
+        public IColumnDefinition SetDataType(int ordinal, Type columnDefinitionType)
+        {
+            IColumnDefinition def = _columnDefinitions.Single(x => x.Ordinal == ordinal);
+            int position = _columnDefinitions.IndexOf(def);
+            IColumnDefinition newColumnDefinition = (IColumnDefinition)Activator.CreateInstance(columnDefinitionType);
+            newColumnDefinition.Name = def.Name;
+            newColumnDefinition.InputColumn = def.InputColumn;
+            newColumnDefinition.Ordinal = def.Ordinal;
+            _columnDefinitions[position] = newColumnDefinition;
+            return newColumnDefinition;
+        }
+
+        public IColumnDefinition SetDataType(string columnName, Type columnDefinitionType)
+        {
+            IColumnDefinition def = _columnDefinitions.Single(x => x.Name == columnName);
+            return SetDataType(def.Ordinal, columnDefinitionType);
         }
 
         #endregion

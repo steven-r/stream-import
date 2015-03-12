@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.3\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -62,10 +65,12 @@
     <Compile Include="BaseTests.cs" />
     <Compile Include="CsvGenericTests.cs" />
     <Compile Include="CsvTests.cs" />
+    <Compile Include="ExcelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Testdata1.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stream.Importer.Base\Stream.Importer.Base.csproj">
@@ -75,6 +80,10 @@
     <ProjectReference Include="..\Stream.Importer.Csv\Stream.Importer.Csv.csproj">
       <Project>{31d95735-a2ad-4e7e-b00f-fdb424aa8701}</Project>
       <Name>Stream.Importer.Csv</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stream.Importer.Excel\Stream.Importer.Excel.csproj">
+      <Project>{e2fcc638-c0fd-44bd-aa55-ebbc293cbd9a}</Project>
+      <Name>Stream.Importer.Excel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
