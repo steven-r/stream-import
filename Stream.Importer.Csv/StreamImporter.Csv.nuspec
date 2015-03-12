@@ -15,7 +15,7 @@
     <copyright>Copyright 2015 Stephen Reindl</copyright>
     <tags>Import Stream CSV</tags>
     <dependencies>
-      <dependency id="Stream.Importer.Base" version="1.0" />
+      <dependency id="Stream.Importer.Base" version="$version$" />
     </dependencies>
   </metadata>
 </package>
