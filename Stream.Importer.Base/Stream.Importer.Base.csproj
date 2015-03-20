@@ -50,7 +50,8 @@
     <Compile Include="ColumnDefinition.cs" />
     <Compile Include="ColumnDefinitions\BasicTypeColumnDefinition.cs" />
     <Compile Include="ColumnDefinitions\IgnoredColumnDefinition.cs" />
-    <Compile Include="ImporterBase.cs" />
+    <Compile Include="StreamImporterBase.cs" />
+    <Compile Include="IStreamImporter.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ColumnMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

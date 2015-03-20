@@ -9,7 +9,7 @@ namespace StreamImporter.Base
     /// <summary>
     /// (Abstract) base class to define basic operations for the import
     /// </summary>
-    public abstract class ImporterBase 
+    public abstract class StreamImporterBase : IStreamImporter
     {
         #region Fields
 
@@ -148,7 +148,7 @@ namespace StreamImporter.Base
         /// </summary>
         /// <param name="column">The old column.</param>
         /// <param name="newColumn">The new column.</param>
-        protected virtual void MapColumn(string column, string newColumn)
+        public virtual void MapColumn(string column, string newColumn)
         {
             IColumnDefinition definition = _columnDefinitions.SingleOrDefault(x => x.Name == column);
             if (definition == null)

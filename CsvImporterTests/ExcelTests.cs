@@ -22,11 +22,11 @@ namespace ImporterTests
 
             ExcelPackage package = new ExcelPackage();
             package.Load(excelFile);
-            ExcelImporter importer = new ExcelImporter(package.Workbook.Worksheets.First(), true);
-            importer.SetupColumns();
-            Assert.True(importer.Read());
-            Assert.True(importer.Read());
-            Assert.False(importer.Read());
+            ExcelStreamImporter streamImporter = new ExcelStreamImporter(package.Workbook.Worksheets.First(), true);
+            streamImporter.SetupColumns();
+            Assert.True(streamImporter.Read());
+            Assert.True(streamImporter.Read());
+            Assert.False(streamImporter.Read());
         }
     }
 }

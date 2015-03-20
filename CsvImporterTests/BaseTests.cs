@@ -14,12 +14,12 @@ namespace ImporterTests
         public void AddColumnDefinitionTest()
         {
             const string data = "Test1;Test2;Test3";
-            CsvImporter importer = new CsvImporter(CsvTests.GenerateStreamFromString(data));
-            Assert.NotNull(importer.AddColumnDefinition("test1", typeof(string)));
-            Assert.NotNull(importer.AddColumnDefinition("test2", typeof(int)));
-            Assert.NotNull(importer.AddColumnDefinition("test3", typeof(decimal)));
-            Assert.NotNull(importer.AddColumnDefinition("test4", typeof(short)));
-            Assert.Throws<InvalidOperationException>(() => importer.AddColumnDefinition("Fail1", typeof (bool)));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(CsvTests.GenerateStreamFromString(data));
+            Assert.NotNull(streamImporter.AddColumnDefinition("test1", typeof(string)));
+            Assert.NotNull(streamImporter.AddColumnDefinition("test2", typeof(int)));
+            Assert.NotNull(streamImporter.AddColumnDefinition("test3", typeof(decimal)));
+            Assert.NotNull(streamImporter.AddColumnDefinition("test4", typeof(short)));
+            Assert.Throws<InvalidOperationException>(() => streamImporter.AddColumnDefinition("Fail1", typeof (bool)));
         }
     }
 }

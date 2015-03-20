@@ -6,7 +6,7 @@ namespace StreamImporter.Base
     /// A single column in the data area.
     /// </summary>
     /// <remarks>
-    /// A <c>ColumnDescription</c> describes the format of a field in the target structure. The <see cref="ImporterBase"/> handling need
+    /// A <c>ColumnDescription</c> describes the format of a field in the target structure. The <see cref="StreamImporterBase"/> handling need
     /// to map the actual input to values of the given type <see cref="P:Type"/>.
     /// </remarks>
     public abstract class ColumnDefinitionBase<T>: IColumnDefinition<T>

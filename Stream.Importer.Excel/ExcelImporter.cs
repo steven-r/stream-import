@@ -6,7 +6,7 @@ using StreamImporter.Base;
 
 namespace StreamImporter.Excel
 {
-    public class ExcelImporter : ImporterBase
+    public class ExcelStreamImporter : StreamImporterBase
     {
 
         #region Fields
@@ -24,12 +24,12 @@ namespace StreamImporter.Excel
 
         #region constructors
 
-        public ExcelImporter(ExcelWorksheet worksheet)
+        public ExcelStreamImporter(ExcelWorksheet worksheet)
         {
             Sheet = worksheet;
         }
 
-        public ExcelImporter(ExcelWorksheet worksheet, bool hasHeader)
+        public ExcelStreamImporter(ExcelWorksheet worksheet, bool hasHeader)
             : this(worksheet)
         {
             HasHeader = hasHeader;

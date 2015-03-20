@@ -8,7 +8,7 @@ using StreamImporter.Base.ColumnDefinitions;
 
 namespace StreamImporter.Csv
 {
-    public class CsvImporter<T>: CsvImporter
+    public class CsvStreamImporter<T>: CsvStreamImporter
         where T: class
     {
         #region Fields
@@ -40,18 +40,18 @@ namespace StreamImporter.Csv
 
         #region Constructors
 
-        public CsvImporter(Stream stream)
+        public CsvStreamImporter(Stream stream)
             :base(stream)
         {
             Value = (T)Activator.CreateInstance(_t);
         }
 
-        public CsvImporter(Stream stream, bool hasHeader)
+        public CsvStreamImporter(Stream stream, bool hasHeader)
             : base(stream, hasHeader)
         {
         }
 
-        public CsvImporter(Stream stream, bool hasHeader, char delimiter)
+        public CsvStreamImporter(Stream stream, bool hasHeader, char delimiter)
             : base(stream, hasHeader, delimiter)
         {
         }

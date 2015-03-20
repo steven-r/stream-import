@@ -24,15 +24,15 @@ namespace ImporterTests
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvImporter<TestClass> importer = new CsvImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
-            importer.SetHeader(true);
-            importer.SetDelimiter(';');
-            importer.SetupColumns();
-            Assert.True(importer.Read());
-            Assert.Equal("Data1", importer.Value.Field1);
-            Assert.Equal(12, importer.Value.Field2);
-            Assert.Equal(12.5M, importer.Value.Field3);
-            Assert.False(importer.Read());
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            streamImporter.SetHeader(true);
+            streamImporter.SetDelimiter(';');
+            streamImporter.SetupColumns();
+            Assert.True(streamImporter.Read());
+            Assert.Equal("Data1", streamImporter.Value.Field1);
+            Assert.Equal(12, streamImporter.Value.Field2);
+            Assert.Equal(12.5M, streamImporter.Value.Field3);
+            Assert.False(streamImporter.Read());
         }
 
 
@@ -48,10 +48,10 @@ namespace ImporterTests
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             string data = "Field1;Field2;Field3;\nData1;12;true\n";
-            CsvImporter<TestClassFail> importer = new CsvImporter<TestClassFail>(CsvTests.GenerateStreamFromString(data));
-            importer.SetHeader(true);
-            importer.SetDelimiter(';');
-            Assert.Throws<InvalidOperationException>(() => importer.SetupColumns());
+            CsvStreamImporter<TestClassFail> streamImporter = new CsvStreamImporter<TestClassFail>(CsvTests.GenerateStreamFromString(data));
+            streamImporter.SetHeader(true);
+            streamImporter.SetDelimiter(';');
+            Assert.Throws<InvalidOperationException>(() => streamImporter.SetupColumns());
         }
 
 
@@ -68,10 +68,10 @@ namespace ImporterTests
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvImporter<MapTest> importer = new CsvImporter<MapTest>(CsvTests.GenerateStreamFromString(data));
-            importer.SetHeader(true);
-            importer.SetDelimiter(';');
-            importer.MapField = header =>
+            CsvStreamImporter<MapTest> streamImporter = new CsvStreamImporter<MapTest>(CsvTests.GenerateStreamFromString(data));
+            streamImporter.SetHeader(true);
+            streamImporter.SetDelimiter(';');
+            streamImporter.MapField = header =>
             {
                 switch (header)
                 {
@@ -84,12 +84,12 @@ namespace ImporterTests
                 }
                 return null; // field not found
             };
-            importer.SetupColumns();
-            Assert.True(importer.Read());
-            Assert.Equal("Data1", importer.Value.A);
-            Assert.Equal(12, importer.Value.B);
-            Assert.Equal(12.5M, importer.Value.C);
-            Assert.False(importer.Read());
+            streamImporter.SetupColumns();
+            Assert.True(streamImporter.Read());
+            Assert.Equal("Data1", streamImporter.Value.A);
+            Assert.Equal(12, streamImporter.Value.B);
+            Assert.Equal(12.5M, streamImporter.Value.C);
+            Assert.False(streamImporter.Read());
         }
 
         #region special decimal handler class
@@ -99,16 +99,16 @@ namespace ImporterTests
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvImporter<TestClass> importer = new CsvImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
-            importer.SetHeader(true);
-            importer.SetDelimiter(';');
-            importer.SetColumnTypeDefinition<decimal>(typeof (MyDecimalColumnDefinition));
-            importer.SetupColumns();
-            Assert.True(importer.Read());
-            Assert.Equal("Data1", importer.Value.Field1);
-            Assert.Equal(12, importer.Value.Field2);
-            Assert.Equal(12.5M, importer.Value.Field3);
-            Assert.False(importer.Read());
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            streamImporter.SetHeader(true);
+            streamImporter.SetDelimiter(';');
+            streamImporter.SetColumnTypeDefinition<decimal>(typeof (MyDecimalColumnDefinition));
+            streamImporter.SetupColumns();
+            Assert.True(streamImporter.Read());
+            Assert.Equal("Data1", streamImporter.Value.Field1);
+            Assert.Equal(12, streamImporter.Value.Field2);
+            Assert.Equal(12.5M, streamImporter.Value.Field3);
+            Assert.False(streamImporter.Read());
         }
 
         [Fact]
@@ -116,16 +116,16 @@ namespace ImporterTests
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("de-DE");
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvImporter<TestClass> importer = new CsvImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
-            importer.SetHeader(true);
-            importer.SetDelimiter(';');
-            importer.SetColumnTypeDefinition<decimal>(typeof(MyDecimalColumnDefinition));
-            importer.SetupColumns();
-            Assert.True(importer.Read());
-            Assert.Equal("Data1", importer.Value.Field1);
-            Assert.Equal(12, importer.Value.Field2);
-            Assert.Equal(12.5M, importer.Value.Field3);
-            Assert.False(importer.Read());
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            streamImporter.SetHeader(true);
+            streamImporter.SetDelimiter(';');
+            streamImporter.SetColumnTypeDefinition<decimal>(typeof(MyDecimalColumnDefinition));
+            streamImporter.SetupColumns();
+            Assert.True(streamImporter.Read());
+            Assert.Equal("Data1", streamImporter.Value.Field1);
+            Assert.Equal(12, streamImporter.Value.Field2);
+            Assert.Equal(12.5M, streamImporter.Value.Field3);
+            Assert.False(streamImporter.Read());
         }
 
         [Fact]
@@ -133,16 +133,16 @@ namespace ImporterTests
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("de-CH");
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvImporter<TestClass> importer = new CsvImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
-            importer.SetHeader(true);
-            importer.SetDelimiter(';');
-            importer.SetColumnTypeDefinition<decimal>(typeof(MyDecimalColumnDefinition));
-            importer.SetupColumns();
-            Assert.True(importer.Read());
-            Assert.Equal("Data1", importer.Value.Field1);
-            Assert.Equal(12, importer.Value.Field2);
-            Assert.Equal(12.5M, importer.Value.Field3);
-            Assert.False(importer.Read());
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            streamImporter.SetHeader(true);
+            streamImporter.SetDelimiter(';');
+            streamImporter.SetColumnTypeDefinition<decimal>(typeof(MyDecimalColumnDefinition));
+            streamImporter.SetupColumns();
+            Assert.True(streamImporter.Read());
+            Assert.Equal("Data1", streamImporter.Value.Field1);
+            Assert.Equal(12, streamImporter.Value.Field2);
+            Assert.Equal(12.5M, streamImporter.Value.Field3);
+            Assert.False(streamImporter.Read());
         }
 
         /// <summary>
