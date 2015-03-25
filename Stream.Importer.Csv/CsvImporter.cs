@@ -132,8 +132,12 @@ namespace StreamImporter.Csv
             {
                 throw new InvalidOperationException("Cannot read header line");
             }
-
-            return ParseLine(line);
+            var headerLine = ParseLine(line);
+            for (int i = 0; i < headerLine.Count(); i++)
+            {
+                headerLine[i] = headerLine[i].Trim();
+            }
+            return headerLine;
         }
 
         #region Line parser

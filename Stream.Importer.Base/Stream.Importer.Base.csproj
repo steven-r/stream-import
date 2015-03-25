@@ -55,7 +55,6 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ColumnMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StreamImport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sn-stream.snk" />

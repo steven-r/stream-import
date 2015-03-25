@@ -118,7 +118,7 @@ namespace StreamImporter.Excel
                 }
                 else
                 {
-                    lineData.Add(header.ToString());
+                    lineData.Add(header.ToString().Trim());
                 }
             }
 
