@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace StreamImporter.Base.ColumnDefinitions
 {
@@ -26,7 +25,7 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Int32 Convert(string value)
         {
-            return System.Convert.ToInt32(value, CultureInfo.CurrentCulture);
+            return System.Convert.ToInt32(value, CultureInfo);
         }
     }
 
@@ -39,7 +38,7 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Int16 Convert(string value)
         {
-            return System.Convert.ToInt16(value, CultureInfo.CurrentCulture);
+            return System.Convert.ToInt16(value, CultureInfo);
         }
     }
 
@@ -52,7 +51,7 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Decimal Convert(string value)
         {
-            return System.Convert.ToDecimal(value, CultureInfo.CurrentCulture);
+            return System.Convert.ToDecimal(value, CultureInfo);
         }
     }
 
@@ -66,7 +65,7 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Single Convert(string value)
         {
-            return System.Convert.ToSingle(value, CultureInfo.CurrentCulture);
+            return System.Convert.ToSingle(value, CultureInfo);
         }
     }
 
@@ -79,7 +78,7 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Double Convert(string value)
         {
-            return System.Convert.ToDouble(value, CultureInfo.CurrentCulture);
+            return System.Convert.ToDouble(value, CultureInfo);
         }
     }
 
@@ -92,7 +91,7 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Boolean Convert(string value)
         {
-            return System.Convert.ToBoolean(value, CultureInfo.CurrentCulture);
+            return System.Convert.ToBoolean(value, CultureInfo);
         }
     }
 

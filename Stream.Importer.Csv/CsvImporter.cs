@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,6 @@ namespace StreamImporter.Csv
 
         #region Fields
 
-        protected char Delimiter = ',';
-
         protected bool HasHeader;
 
         private readonly Stream _stream;
@@ -22,6 +21,7 @@ namespace StreamImporter.Csv
         private readonly StreamReader _streamReader;
 
         private string[] _data;
+
 
         #endregion
 
@@ -40,11 +40,18 @@ namespace StreamImporter.Csv
             HasHeader = hasHeader;
         }
 
-        public CsvStreamImporter(Stream stream, bool hasHeader, char delimiter)
-            : this(stream, hasHeader)
+        public CsvStreamImporter(Stream stream, CultureInfo cultureInfo)
+        : this(stream)
         {
-            Delimiter = delimiter;
+            CultureInfo = cultureInfo;
         }
+
+        public CsvStreamImporter(Stream stream, bool hasHeader, CultureInfo cultureInfo)
+        : this(stream, hasHeader)
+        {
+            CultureInfo = cultureInfo;
+        }
+
 
         #endregion
 
@@ -166,7 +173,7 @@ namespace StreamImporter.Csv
                         {
                             state = ParseState.InString; // start of string
                         }
-                        else if (data[i] == Delimiter)
+                        else if (data[i] == CultureInfo.TextInfo.ListSeparator[0])
                         {
                             output.Add(currentField.ToString());
                             currentField.Clear();
@@ -180,7 +187,7 @@ namespace StreamImporter.Csv
                         }
                         break;
                     case ParseState.InElement:
-                        if (data[i] == Delimiter)
+                        if (data[i] == CultureInfo.TextInfo.ListSeparator[0])
                         {
                             output.Add(currentField.ToString());
                             currentField.Clear();
@@ -213,10 +220,10 @@ namespace StreamImporter.Csv
                         currentField.Append(data[i]);
                         break;
                     case ParseState.Delimiter:
-                        if (data[i] != Delimiter)
+                        if (data[i] != CultureInfo.TextInfo.ListSeparator[0])
                         {
                             throw new InvalidDataException(string.Format(
-                                "Wrong character at column {0}, expected '{1}'", i + 1, Delimiter));
+                                "Wrong character at column {0}, expected '{1}'", i + 1, CultureInfo.TextInfo.ListSeparator));
                         }
                         output.Add(currentField.ToString());
                         currentField.Clear();
@@ -244,10 +251,6 @@ namespace StreamImporter.Csv
             HasHeader = true;
         }
 
-        public void SetDelimiter(char delimiter)
-        {
-            Delimiter = delimiter;
-        }
         #endregion
 
     }

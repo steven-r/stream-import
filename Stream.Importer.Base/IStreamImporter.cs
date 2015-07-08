@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace StreamImporter.Base
 {
@@ -19,6 +20,11 @@ namespace StreamImporter.Base
         /// Gets a value indicating whether the data reader is closed.
         /// </summary>
         bool IsClosed { get; }
+
+        /// <summary>
+        /// Declares the culture to be used. If not set, the thread's current culture will be used.
+        /// </summary>
+        CultureInfo CultureInfo { get; set; }
 
         /// <summary>
         /// Adds a new column definition with name and type. If the <c>columnName</c> exists, the given record will be upated.
@@ -135,5 +141,6 @@ namespace StreamImporter.Base
         /// True if there are more rows; otherwise, false.
         /// </returns>
         bool Read();
+
     }
 }

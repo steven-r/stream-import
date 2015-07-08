@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace StreamImporter.Base
 {
@@ -34,6 +35,8 @@ namespace StreamImporter.Base
         public string InputColumn { get; set; }
 
         #endregion
+
+        public CultureInfo CultureInfo { get; set; }
 
         #region Converter
 
@@ -72,6 +75,8 @@ namespace StreamImporter.Base
         string InputColumn { get; set; }
 
         #endregion
+
+        CultureInfo CultureInfo { get; set; }
 
         object Convert(string value);
     }

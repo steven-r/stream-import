@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -49,11 +50,18 @@ namespace StreamImporter.Csv
         public CsvStreamImporter(Stream stream, bool hasHeader)
             : base(stream, hasHeader)
         {
+            Value = (T)Activator.CreateInstance(_t);
+        }
+        public CsvStreamImporter(Stream stream, CultureInfo cultureInfo)
+            : base(stream, cultureInfo)
+        {
+            Value = (T)Activator.CreateInstance(_t);
         }
 
-        public CsvStreamImporter(Stream stream, bool hasHeader, char delimiter)
-            : base(stream, hasHeader, delimiter)
+        public CsvStreamImporter(Stream stream, bool hasHeader, CultureInfo culture)
+            : base(stream, hasHeader, culture)
         {
+            Value = (T)Activator.CreateInstance(_t);
         }
 
         #endregion

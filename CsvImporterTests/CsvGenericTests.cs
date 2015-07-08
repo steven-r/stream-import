@@ -22,11 +22,11 @@ namespace ImporterTests
         [Fact]
         public void Test1()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
             Assert.Equal("Data1", streamImporter.Value.Field1);
@@ -46,11 +46,11 @@ namespace ImporterTests
         [Fact]
         public void TestFailInvalidType()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
             string data = "Field1;Field2;Field3;\nData1;12;true\n";
-            CsvStreamImporter<TestClassFail> streamImporter = new CsvStreamImporter<TestClassFail>(CsvTests.GenerateStreamFromString(data));
+            CsvStreamImporter<TestClassFail> streamImporter = new CsvStreamImporter<TestClassFail>(CsvTests.GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             Assert.Throws<InvalidOperationException>(() => streamImporter.SetupColumns());
         }
 
@@ -66,11 +66,12 @@ namespace ImporterTests
         [Fact]
         public void TestMapping()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvStreamImporter<MapTest> streamImporter = new CsvStreamImporter<MapTest>(CsvTests.GenerateStreamFromString(data));
+            CsvStreamImporter<MapTest> streamImporter =
+                new CsvStreamImporter<MapTest>(CsvTests.GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.MapField = header =>
             {
                 switch (header)
@@ -97,11 +98,11 @@ namespace ImporterTests
         [Fact]
         public void TestDefaultCulture()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetColumnTypeDefinition<decimal>(typeof (MyDecimalColumnDefinition));
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
@@ -114,11 +115,11 @@ namespace ImporterTests
         [Fact]
         public void TestDefaultDeDe()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("de-DE");
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetColumnTypeDefinition<decimal>(typeof(MyDecimalColumnDefinition));
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
@@ -131,11 +132,11 @@ namespace ImporterTests
         [Fact]
         public void TestDefaultDeCh()
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("de-CH");
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
             string data = "Field1;Field2;Field3;\nData1;12;12.5\n";
-            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data));
+            CsvStreamImporter<TestClass> streamImporter = new CsvStreamImporter<TestClass>(CsvTests.GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetColumnTypeDefinition<decimal>(typeof(MyDecimalColumnDefinition));
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using StreamImporter.Csv;
 using Xunit;
@@ -12,10 +13,12 @@ namespace ImporterTests
         [Fact]
         public void HeaderTest1()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             const string data = "Test1;Test2;Test3";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Assert.Equal(3, streamImporter.ColumnDefinitions.Count);
@@ -24,10 +27,12 @@ namespace ImporterTests
         [Fact]
         public void HeaderTest2()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;\"Test2\";Test3";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Assert.Equal(3, streamImporter.ColumnDefinitions.Count);
@@ -37,10 +42,12 @@ namespace ImporterTests
         [Fact]
         public void HeaderTest3()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Assert.Equal(2, streamImporter.ColumnDefinitions.Count);
@@ -49,20 +56,24 @@ namespace ImporterTests
         [Fact]
         public void HeaderTest4()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = ";Test2;Test3";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             Assert.Throws<ArgumentException>(() => streamImporter.SetupColumns());
         }
 
         [Fact]
         public void HeaderTest5()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Assert.Equal(1, streamImporter.ColumnDefinitions.Count);
@@ -71,10 +82,12 @@ namespace ImporterTests
         [Fact]
         public void HeaderTest6()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;\"Test";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             Exception ex = Assert.Throws<InvalidDataException>(() => streamImporter.SetupColumns());
             Assert.Equal("Invalid line end", ex.Message);
         }
@@ -83,10 +96,12 @@ namespace ImporterTests
         [Fact]
         public void HeaderTest7()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;\"Test\"text";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             Exception ex = Assert.Throws<InvalidDataException>(() => streamImporter.SetupColumns());
             Assert.Equal("Wrong character at column 13, expected ';'", ex.Message);
         }
@@ -94,10 +109,12 @@ namespace ImporterTests
         [Fact]
         public void HeaderTest8()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Assert.Equal(3, streamImporter.FieldCount);
@@ -106,10 +123,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestEmptyLastLine()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\n\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Assert.Equal(3, streamImporter.FieldCount);
@@ -118,10 +137,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestOk1()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
             Assert.False(streamImporter.Read());
@@ -130,10 +151,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestOkCheckEofOnEmptyLine()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\n\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Assert.True(streamImporter.IsClosed);
@@ -143,10 +166,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestReadAfterEof()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\n\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.False(streamImporter.Read());
             Exception ex = Assert.Throws<InvalidOperationException>(() => streamImporter.Read());
@@ -156,10 +181,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestFillUp()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\nData1;Data2\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
             Assert.Equal(string.Empty, streamImporter.GetValue(2));
@@ -168,10 +195,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestDataMatch()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\nData1;Data2;Data3;Data4\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
             Assert.Equal("Data1", streamImporter.GetValue(0));
@@ -182,10 +211,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestDataOverflow()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\nData1;Data2;Data3;Data4\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
             Assert.Equal("Data1", streamImporter.GetValue(0));
@@ -197,10 +228,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestOk2()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test2;\"Test\";\nData1;Data2;Data3\nData1;Data2;Data3\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
             Assert.True(streamImporter.Read());
@@ -211,20 +244,24 @@ namespace ImporterTests
         [Fact]
         public void DataTestMissingSetupColumns()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;Test3;\"Test\";\nData1;Data2;Data3\nData1;Data2;Data3\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             Assert.Throws<InvalidOperationException>(() => streamImporter.Read());
         }
 
         [Fact]
         public void DataTestMissingSetupColumnsReadAhead()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Test1;;\"Test\";\nData1;Data2;Data3\nData1;Data2;Data3\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
-            streamImporter.SetDelimiter(';');
             Assert.Throws<InvalidOperationException>(() => streamImporter.Read());
             Assert.Throws<InvalidOperationException>(() => streamImporter.Read());
         }
@@ -232,9 +269,11 @@ namespace ImporterTests
         [Fact]
         public void DataTestWithoutHeaderOk()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Data1;Data2;Data3\nData1;Data2;Data3\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
-            streamImporter.SetDelimiter(';');
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.AddColumnDefinition("Field1", typeof(string));
             streamImporter.AddColumnDefinition("Field2", typeof(string));
             streamImporter.AddColumnDefinition("Field3", typeof(string));
@@ -247,9 +286,11 @@ namespace ImporterTests
         [Fact]
         public void DataTestFailWithoutHeader()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Data1;Data2;Data3\nData1;Data2;Data3\nData1;Data2;Data3\n";
-            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data));
-            streamImporter.SetDelimiter(';');
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             Exception ex = Assert.Throws<InvalidOperationException>(() => streamImporter.Read());
             Assert.Equal("Cannot start reading if columns are not defined until now.", ex.Message);
         }
@@ -257,10 +298,12 @@ namespace ImporterTests
         [Fact]
         public void DataTestClosedStream()
         {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
             string data = "Data1;Data2;Data3\nData1;Data2;Data3\nData1;Data2;Data3\n";
             Stream stream = GenerateStreamFromString(data);
-            CsvStreamImporter streamImporter = new CsvStreamImporter(stream);
-            streamImporter.SetDelimiter(';');
+            CsvStreamImporter streamImporter = new CsvStreamImporter(stream, info);
             streamImporter.AddColumnDefinition("Field1", typeof(string));
             streamImporter.AddColumnDefinition("Field2", typeof(string));
             streamImporter.AddColumnDefinition("Field3", typeof(string));

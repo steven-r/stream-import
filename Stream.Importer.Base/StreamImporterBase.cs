@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using StreamImporter.Base.ColumnDefinitions;
 
@@ -44,6 +45,8 @@ namespace StreamImporter.Base
             {typeof (decimal), typeof (DecimalColumnDefinition)},
             {typeof (short), typeof (Int16ColumnDefinition)},
         };
+
+        private CultureInfo _cultureInfo;
 
         /// <summary>
         /// Adds a new column definition with name and type. If the <c>columnName</c> exists, the given record will be upated.
@@ -102,6 +105,7 @@ namespace StreamImporter.Base
             {
                 definition = (IColumnDefinition)Activator.CreateInstance(columnDefinitionType);
                 definition.Ordinal = _columnDefinitions.Count;
+                definition.CultureInfo = CultureInfo;
                 _columnDefinitions.Add(definition);
             }
             definition.Name = columnName;
@@ -173,6 +177,18 @@ namespace StreamImporter.Base
         public virtual bool IsClosed
         {
             get { return !_isOpen; }
+        }
+
+        public CultureInfo CultureInfo
+        {
+            get {
+                if (_cultureInfo == null)
+                {
+                    return CultureInfo.CurrentCulture;
+                }
+                return _cultureInfo;
+            }
+            set { _cultureInfo = value; }
         }
 
         /// <summary> Gets the column data located at the specified index. </summary>
