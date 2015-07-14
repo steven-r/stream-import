@@ -12,7 +12,7 @@ build:
   publish_nuget: true
   publish_nuget_symbols: true
   include_nuget_references: true
-  verbosity: detailed
+  verbosity: normal
 deploy:
 - provider: NuGet
   server: https://www.myget.org/F/stream-importer/
