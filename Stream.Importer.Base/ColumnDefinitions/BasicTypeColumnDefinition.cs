@@ -20,11 +20,15 @@ namespace StreamImporter.Base.ColumnDefinitions
     {
         public Int32ColumnDefinition()
         {
-            Type = typeof(string);
+            Type = typeof(Int32);
         }
 
         public override Int32 Convert(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(Int32);
+            }
             return System.Convert.ToInt32(value, CultureInfo);
         }
     }
@@ -38,19 +42,27 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Int16 Convert(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(Int16);
+            }
             return System.Convert.ToInt16(value, CultureInfo);
         }
     }
 
-    public class DecimalColumnDefinition : ColumnDefinitionBase<Decimal>
+    public class DecimalColumnDefinition : ColumnDefinitionBase<decimal>
     {
         public DecimalColumnDefinition()
         {
-            Type = typeof(string);
+            Type = typeof(decimal);
         }
 
-        public override Decimal Convert(string value)
+        public override decimal Convert(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(decimal);
+            }
             return System.Convert.ToDecimal(value, CultureInfo);
         }
     }
@@ -65,6 +77,10 @@ namespace StreamImporter.Base.ColumnDefinitions
 
         public override Single Convert(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(Single);
+            }
             return System.Convert.ToSingle(value, CultureInfo);
         }
     }
@@ -73,11 +89,15 @@ namespace StreamImporter.Base.ColumnDefinitions
     {
         public DoubleColumnDefinition()
         {
-            Type = typeof(string);
+            Type = typeof(Double);
         }
 
         public override Double Convert(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(Double);
+            }
             return System.Convert.ToDouble(value, CultureInfo);
         }
     }
@@ -86,11 +106,15 @@ namespace StreamImporter.Base.ColumnDefinitions
     {
         public BooleanColumnDefinition()
         {
-            Type = typeof(string);
+            Type = typeof(Boolean);
         }
 
         public override Boolean Convert(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return default(Boolean);
+            }
             return System.Convert.ToBoolean(value, CultureInfo);
         }
     }

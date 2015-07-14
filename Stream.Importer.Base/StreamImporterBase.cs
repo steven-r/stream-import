@@ -129,6 +129,7 @@ namespace StreamImporter.Base
             newColumnDefinition.Name = def.Name;
             newColumnDefinition.InputColumn = def.InputColumn;
             newColumnDefinition.Ordinal = def.Ordinal;
+            newColumnDefinition.CultureInfo = CultureInfo;
             _columnDefinitions[position] = newColumnDefinition;
             return newColumnDefinition;
         }

@@ -21,7 +21,7 @@ namespace StreamImporter.Csv
         // ReSharper disable once MemberCanBePrivate.Global
         protected readonly StreamReader StreamReader;
 
-        private string[] _data;
+        private object[] _data;
 
 
         #endregion
@@ -104,7 +104,12 @@ namespace StreamImporter.Csv
 
         public virtual void SetData(string[] data)
         {
-            _data = data;
+            _data = new object[data.Length];
+            int col = 0;
+            foreach (IColumnDefinition columnDefinition in ColumnDefinitions)
+            {
+                _data[col] = columnDefinition.Convert(data[col++]);
+            }
         }
 
         /// <exception cref="InvalidOperationException">Could not determine headers</exception>

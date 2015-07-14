@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using StreamImporter.Base.ColumnDefinitions;
 using StreamImporter.Csv;
 using Xunit;
 
@@ -241,6 +242,7 @@ namespace ImporterTests
             Assert.False(streamImporter.Read());
         }
 
+
         [Fact]
         public void DataTestMissingSetupColumns()
         {
@@ -251,6 +253,27 @@ namespace ImporterTests
             CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
             Assert.Throws<InvalidOperationException>(() => streamImporter.Read());
+        }
+
+        [Fact]
+        public void DataTestDecimal()
+        {
+            CultureInfo info = new CultureInfo(CultureInfo.InvariantCulture.Name);
+            info.TextInfo.ListSeparator = ";";
+
+            string data = "Test1;Test3;\"Test\";\nData1;Data2;1.0\nData1;Data2;2.0\nData1;Data2\nData1;Data2;2.43\n";
+            CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
+            streamImporter.SetHeader(true);
+            streamImporter.SetupColumns();
+            streamImporter.SetDataType("Test", typeof (DecimalColumnDefinition));
+            Assert.True(streamImporter.Read());
+            Assert.Equal(1M, streamImporter.GetValue(2));
+            Assert.True(streamImporter.Read());
+            Assert.Equal(2M, streamImporter.GetValue(2));
+            Assert.True(streamImporter.Read());
+            Assert.Equal(0M, streamImporter.GetValue(2));
+            Assert.True(streamImporter.Read());
+            Assert.Equal(2.43M, streamImporter.GetValue(2));
         }
 
         [Fact]
