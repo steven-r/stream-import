@@ -9,14 +9,14 @@ assembly_info:
   patch: true
   file: '**\AssemblyInfo.*'
   assembly_version: '0.9.0'
-  assembly_file_version: '0.9.{build}'
+  assembly_file_version: '{version}.0'
   assembly_informational_version: '0.9.{build}-$(GIT_HASH)'
 
 build:
   publish_nuget: true
   publish_nuget_symbols: true
   include_nuget_references: true
-  verbosity: verbose
+  verbosity: detailed
 
 deploy:
 - provider: NuGet
