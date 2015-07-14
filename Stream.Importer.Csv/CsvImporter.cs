@@ -16,12 +16,6 @@ namespace StreamImporter.Csv
         protected bool HasHeader;
 
         /// <summary>
-        /// The stream to be read
-        /// </summary>
-        // ReSharper disable once MemberCanBePrivate.Global
-        protected readonly Stream Stream;
-
-        /// <summary>
         /// The used stream reader
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
@@ -35,26 +29,25 @@ namespace StreamImporter.Csv
 
         #region constructors 
 
-        public CsvStreamImporter(Stream stream)
+        public CsvStreamImporter(StreamReader streamReader)
         {
-            Stream = stream;
-            StreamReader = new StreamReader(Stream);
+            StreamReader = streamReader;
         }
 
-        public CsvStreamImporter(Stream stream, bool hasHeader)
-        : this(stream)
+        public CsvStreamImporter(StreamReader streamReader, bool hasHeader)
+        : this(streamReader)
         {
             HasHeader = hasHeader;
         }
 
-        public CsvStreamImporter(Stream stream, CultureInfo cultureInfo)
-        : this(stream)
+        public CsvStreamImporter(StreamReader streamReader, CultureInfo cultureInfo)
+        : this(streamReader)
         {
             CultureInfo = cultureInfo;
         }
 
-        public CsvStreamImporter(Stream stream, bool hasHeader, CultureInfo cultureInfo)
-        : this(stream, hasHeader)
+        public CsvStreamImporter(StreamReader streamReader, bool hasHeader, CultureInfo cultureInfo)
+        : this(streamReader, hasHeader)
         {
             CultureInfo = cultureInfo;
         }
@@ -73,19 +66,19 @@ namespace StreamImporter.Csv
 
         public override void Close()
         {
-            Stream.Close();
+            StreamReader.Close();
         }
 
         public override bool IsClosed
         {
-            get { return !Stream.CanRead; }
+            get { return StreamReader.BaseStream == null || !StreamReader.BaseStream.CanRead; }
         }
 
         /// <exception cref="InvalidOperationException">Cannot read from closed stream</exception>
         /// <exception cref="InvalidOperationException">Cannot start reading if columns are not defined until now.</exception>
         public override bool Read()
         {
-            if (Stream == null || Stream.CanRead == false)
+            if (StreamReader == null || StreamReader.BaseStream == null || StreamReader.BaseStream.CanRead == false)
             {
                 throw new InvalidOperationException("Cannot read from closed stream");
             }

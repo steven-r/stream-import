@@ -302,7 +302,7 @@ namespace ImporterTests
             info.TextInfo.ListSeparator = ";";
 
             string data = "Data1;Data2;Data3\nData1;Data2;Data3\nData1;Data2;Data3\n";
-            Stream stream = GenerateStreamFromString(data);
+            StreamReader stream = GenerateStreamFromString(data);
             CsvStreamImporter streamImporter = new CsvStreamImporter(stream, info);
             streamImporter.AddColumnDefinition("Field1", typeof(string));
             streamImporter.AddColumnDefinition("Field2", typeof(string));
@@ -316,14 +316,14 @@ namespace ImporterTests
 
         #region helper classes
 
-        internal static Stream GenerateStreamFromString(string s)
+        internal static StreamReader GenerateStreamFromString(string s)
         {
             MemoryStream stream = new MemoryStream();
             StreamWriter writer = new StreamWriter(stream);
             writer.Write(s);
             writer.Flush();
             stream.Position = 0;
-            return stream;
+            return new StreamReader(stream);
         }
 
         #endregion

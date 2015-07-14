@@ -41,25 +41,25 @@ namespace StreamImporter.Csv
 
         #region Constructors
 
-        public CsvStreamImporter(Stream stream)
-            :base(stream)
+        public CsvStreamImporter(StreamReader streamReader)
+            :base(streamReader)
         {
             Value = (T)Activator.CreateInstance(_t);
         }
 
-        public CsvStreamImporter(Stream stream, bool hasHeader)
-            : base(stream, hasHeader)
+        public CsvStreamImporter(StreamReader streamReader, bool hasHeader)
+            : base(streamReader, hasHeader)
         {
             Value = (T)Activator.CreateInstance(_t);
         }
-        public CsvStreamImporter(Stream stream, CultureInfo cultureInfo)
-            : base(stream, cultureInfo)
+        public CsvStreamImporter(StreamReader streamReader, CultureInfo cultureInfo)
+            : base(streamReader, cultureInfo)
         {
             Value = (T)Activator.CreateInstance(_t);
         }
 
-        public CsvStreamImporter(Stream stream, bool hasHeader, CultureInfo culture)
-            : base(stream, hasHeader, culture)
+        public CsvStreamImporter(StreamReader streamReader, bool hasHeader, CultureInfo culture)
+            : base(streamReader, hasHeader, culture)
         {
             Value = (T)Activator.CreateInstance(_t);
         }
@@ -79,10 +79,9 @@ namespace StreamImporter.Csv
             {
                 throw new InvalidCastException(string.Format("The type {0} does not contain any public property", _t.FullName));
             }
-            List<string> csvHeaders = new List<string>();
             if (HasHeader)
             {
-                csvHeaders = ReadHeaderLine();
+                var csvHeaders = ReadHeaderLine();
                 foreach (string header in csvHeaders)
                 {
                     string propertyName = MapField(header);
