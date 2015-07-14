@@ -121,7 +121,7 @@ namespace StreamImporter.Excel
                     lineData.Add(header.ToString().Trim());
                 }
             }
-
+            _rowNum++; // has been read
             return lineData;
         }
 
