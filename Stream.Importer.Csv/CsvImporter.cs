@@ -15,8 +15,16 @@ namespace StreamImporter.Csv
 
         protected bool HasHeader;
 
+        /// <summary>
+        /// The stream to be read
+        /// </summary>
+        // ReSharper disable once MemberCanBePrivate.Global
         protected readonly Stream Stream;
 
+        /// <summary>
+        /// The used stream reader
+        /// </summary>
+        // ReSharper disable once MemberCanBePrivate.Global
         protected readonly StreamReader StreamReader;
 
         private string[] _data;
@@ -157,7 +165,14 @@ namespace StreamImporter.Csv
             InString = 32,
             FinalValid = StartOfElement | Delimiter
         }
-        private List<string> ParseLine(string line)
+
+        /// <summary>
+        /// Parse a CSV line
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        // ReSharper disable once MemberCanBePrivate.Global
+        protected List<string> ParseLine(string line)
         {
             List<string> output = new List<string>(10);
             ParseState state = ParseState.StartOfElement; // in text
