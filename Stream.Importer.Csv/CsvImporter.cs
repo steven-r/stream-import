@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using StreamImporter.Base;
-using StreamImporter.Base.ColumnDefinitions;
 
 namespace StreamImporter.Csv
 {
@@ -16,9 +15,9 @@ namespace StreamImporter.Csv
 
         protected bool HasHeader;
 
-        private readonly Stream _stream;
+        protected readonly Stream Stream;
 
-        private readonly StreamReader _streamReader;
+        protected readonly StreamReader StreamReader;
 
         private string[] _data;
 
@@ -30,8 +29,8 @@ namespace StreamImporter.Csv
 
         public CsvStreamImporter(Stream stream)
         {
-            _stream = stream;
-            _streamReader = new StreamReader(_stream);
+            Stream = stream;
+            StreamReader = new StreamReader(Stream);
         }
 
         public CsvStreamImporter(Stream stream, bool hasHeader)
@@ -66,19 +65,19 @@ namespace StreamImporter.Csv
 
         public override void Close()
         {
-            _stream.Close();
+            Stream.Close();
         }
 
         public override bool IsClosed
         {
-            get { return !_stream.CanRead; }
+            get { return !Stream.CanRead; }
         }
 
         /// <exception cref="InvalidOperationException">Cannot read from closed stream</exception>
         /// <exception cref="InvalidOperationException">Cannot start reading if columns are not defined until now.</exception>
         public override bool Read()
         {
-            if (_stream == null || _stream.CanRead == false)
+            if (Stream == null || Stream.CanRead == false)
             {
                 throw new InvalidOperationException("Cannot read from closed stream");
             }
@@ -86,7 +85,7 @@ namespace StreamImporter.Csv
             {
                 throw new InvalidOperationException("Cannot start reading if columns are not defined until now.");
             }
-            string line = _streamReader.ReadLine();
+            string line = StreamReader.ReadLine();
             if (string.IsNullOrWhiteSpace(line))
             {
                 Close();
@@ -133,7 +132,7 @@ namespace StreamImporter.Csv
 
         protected List<string> ReadHeaderLine()
         {
-            string line = _streamReader.ReadLine();
+            string line = StreamReader.ReadLine();
 
             if (string.IsNullOrWhiteSpace(line))
             {
