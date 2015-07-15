@@ -277,9 +277,10 @@ namespace ImporterTests
         }
 
         [Fact]
-        public void DecimaldeCh()
+        public void DecimalDeCh()
         {
             CultureInfo info = new CultureInfo("de-CH");
+            Assert.Equal("de-CH", info.Name);
             info.TextInfo.ListSeparator = ";";
 
             string data = "Test1;Test3;\"Test\";\nData1;Data2;1.0\nData1;Data2;2.0\nData1;Data2\nData1;Data2;2.43\n";
