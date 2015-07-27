@@ -70,7 +70,7 @@ namespace StreamImporter.Base.ColumnDefinitions
             }
             catch (FormatException fe)
             {
-                throw new FormatException($"Huh: Formatting {value} with {CultureInfo.DisplayName} failed (delimiter: '{CultureInfo.NumberFormat.NumberDecimalDigits}', separator: '{CultureInfo.NumberFormat.NumberGroupSeparator}'", fe);
+                throw new FormatException(string.Format("Huh: Formatting {0} with {1} failed (delimiter: '{2}', separator: '{3}'", value, CultureInfo.Name, CultureInfo.NumberFormat.NumberDecimalSeparator, CultureInfo.NumberFormat.NumberGroupSeparator), fe);
             }
         }
     }
