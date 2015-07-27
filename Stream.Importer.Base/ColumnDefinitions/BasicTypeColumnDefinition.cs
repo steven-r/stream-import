@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace StreamImporter.Base.ColumnDefinitions
 {
@@ -63,7 +64,14 @@ namespace StreamImporter.Base.ColumnDefinitions
             {
                 return default(decimal);
             }
-            return System.Convert.ToDecimal(value, CultureInfo);
+            try
+            {
+                return System.Convert.ToDecimal(value, CultureInfo);
+            }
+            catch (FormatException fe)
+            {
+                throw new FormatException($"Huh: Formatting {value} with {CultureInfo.DisplayName} failed (delimiter: '{CultureInfo.NumberFormat.NumberDecimalDigits}', separator: '{CultureInfo.NumberFormat.NumberGroupSeparator}'", fe);
+            }
         }
     }
 
