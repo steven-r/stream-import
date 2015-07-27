@@ -25,6 +25,7 @@ namespace ImporterTests
             ExcelStreamImporter streamImporter = new ExcelStreamImporter(package.Workbook.Worksheets.First(), true);
             streamImporter.SetupColumns();
             Assert.True(streamImporter.Read());
+            Assert.True(streamImporter.Read());
             Assert.False(streamImporter.Read());
         }
     }

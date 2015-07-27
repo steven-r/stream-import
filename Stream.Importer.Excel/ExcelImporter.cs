@@ -96,7 +96,6 @@ namespace StreamImporter.Excel
             {
                 AddColumnDefinition<string>(field);
             }
-            _rowNum++;
         }
 
         public override int FieldCount
