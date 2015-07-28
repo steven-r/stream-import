@@ -282,10 +282,6 @@ namespace ImporterTests
             CultureInfo info = new CultureInfo("de-CH");
             Assert.Equal("de-CH", info.Name);
             info.TextInfo.ListSeparator = ";";
-#if FIX_APVOYER
-            info.NumberFormat.NumberDecimalSeparator = ".";
-            info.NumberFormat.NumberGroupSeparator = "'";
-#endif
             string data = "Test1;Test3;\"Test\";\nData1;Data2;1.0\nData1;Data2;2.0\nData1;Data2\nData1;Data2;2.43\n";
             CsvStreamImporter streamImporter = new CsvStreamImporter(GenerateStreamFromString(data), info);
             streamImporter.SetHeader(true);
